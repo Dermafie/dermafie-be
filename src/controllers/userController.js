@@ -112,3 +112,34 @@ exports.login = async (req, res) => {
         });
     }
 };
+
+exports.getProfile = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const user = await User.findByPk(userId);
+
+        if (!user) {
+            return res.status(404).json({ 
+                message: 'User not found',
+                error_code: 404
+            });
+        }
+
+        return res.status(200).json({
+            message: 'User found',
+            data: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                profilepic: user.profile_picture
+            },
+            error_code: 0
+        });
+    } catch (error) {
+        console.error('Error fetching user by ID:', error);
+        return res.status(500).json({ 
+            message: 'Internal server error',
+            error_code: 500
+        });
+    }
+}

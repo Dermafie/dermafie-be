@@ -51,3 +51,26 @@
   "error_code": 0
 }
 ```
+
+### Profile
+- URL : /users/profile
+- Method : GET
+- Authenticate (Token Bearer) :
+```json
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg2NmExMTdmLTZmYWMtNDYxNC1iZThkLWI4ZWFhOGY0ZjM4NiIsImVtYWlsIjoiam9obi5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3MTc1MjU3OTEsImV4cCI6MTcxNzYxMjE5MX0.tJcazpXq7SR1tBrkvPWFEqQ_F7v6zFXpA5bEA4z3Tt4",
+}
+```
+- Response :
+```json
+{
+    "message": "User found",
+    "data": {
+        "id": "866a117f-6fac-4614-be8d-b8eaa8f4f386",
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "profilepic": null
+    },
+    "error_code": 0
+}
+```

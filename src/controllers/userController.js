@@ -1,28 +1,9 @@
 const e = require('express');
 const { User } = require('../models');
 const bcrypt = require('bcryptjs');
+const bucket = require('../helpers/storage');
+const upload = require('../helpers/multer');
 const { generateToken } = require('../helpers/jwt');
-
-// exports.getUserById = async (req, res) => {
-//     const userId = req.params.id;
-
-//     try {
-//         const user = await User.findByPk(userId);
-
-//         if (!user) {
-//             return res.status(404).json({ error: 'User not found' });
-//         }
-
-//         return res.status(200).json({
-//             message: 'User found',
-//             data: user,
-//             error_code: 0
-//         });
-//     } catch (error) {
-//         console.error('Error fetching user by ID:', error);
-//         return res.status(500).json({ error: 'Internal server error' });
-//     }
-// };
 
 exports.createUser = async (req, res) => {
     
@@ -142,4 +123,95 @@ exports.getProfile = async (req, res) => {
             error_code: 500
         });
     }
+}
+
+exports.uploadProfilePicture = async (req, res) => {
+    upload.single('profile_picture')(req, res, async (err) => {
+        if (err) {
+            return res.status(400).json({ 
+                message: err,
+                error_code: 400
+            });
+        }
+
+        if (!req.file) {
+            return res.status(400).json({ 
+                message: 'Please select an image to upload',
+                error_code: 400
+            });
+        }
+
+        const userId = req.user.id;
+        const userPP = req.user.profile_picture;
+
+        try {
+            const filename = `profile_picture_${userId}.jpg`;
+            const blob = bucket.file(filename);
+            const blobStream = blob.createWriteStream({
+                resumable: false,
+                metadata: {
+                    contentType: 'image/jpeg'
+                },
+                
+            });
+
+            blobStream.on('error', (err) => {
+                console.error('Error uploading profile picture:', err);
+                return res.status(500).json({ 
+                    message: 'Internal server error',
+                    error_code: 500
+                });
+            });
+
+            blobStream.on('finish', async () => {
+                try{
+                    const publicUrl = `https://storage.googleapis.com/${bucket.name}/${filename}`;
+                    if (userPP === null) {
+                        await blob.setMetadata({
+                            acl: [
+                                {
+                                    entity: 'allUsers',
+                                    role: 'READER',
+                                },
+                            ],
+                        });
+                        
+                        await User.update({ profile_picture: publicUrl }, { where: { id: userId } });
+
+                        return res.status(200).json({
+                            message: 'Profile picture uploaded successfully',
+                            data: {
+                                profile_picture: publicUrl
+                            },
+                            error_code: 0
+                        });
+                    } else {
+                        return res.status(200).json({
+                            message: 'Profile picture uploaded successfully',
+                            data: {
+                                profile_picture: publicUrl
+                            },
+                            error_code: 0
+                        });
+                    }
+                    
+                } catch (error) {
+                    console.error('Error making file public:', error);
+                    return res.status(500).json({ 
+                        message: 'Internal server error',
+                        error_code: 500
+                    });
+                }
+                
+            });
+
+            blobStream.end(req.file.buffer);
+        } catch (error) {
+            console.error('Error uploading profile picture:', error);
+            return res.status(500).json({ 
+                message: 'Internal server error',
+                error_code: 500
+            });
+        }
+    });
 }

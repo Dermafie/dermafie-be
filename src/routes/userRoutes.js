@@ -4,12 +4,12 @@ const UserController = require('../controllers/userController');
 const { authenticate } = require('../middleware/auth');
 
 
-// router.get('/:id', UserController.getUserById);
-
 router.post('/register', UserController.createUser);
 
 router.post('/login', UserController.login);
 
 router.get('/profile', authenticate, UserController.getProfile);
+
+router.put('/profile', authenticate, UserController.uploadProfilePicture);
 
 module.exports = router;

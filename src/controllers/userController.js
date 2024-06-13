@@ -6,13 +6,12 @@ const upload = require('../helpers/multer');
 const { generateToken } = require('../helpers/jwt');
 
 exports.createUser = async (req, res) => {
-    
     const { name, email, password } = req.body;
     const checkUser = await User.findOne({
         where: {
           email
         }
-    })
+    });
 
     if(checkUser){
         return res.status(400).json({ 
@@ -20,7 +19,6 @@ exports.createUser = async (req, res) => {
             error_code: 400
         });
     }
-
 
     try {
         const salt = await bcrypt.genSalt(10);
@@ -36,7 +34,7 @@ exports.createUser = async (req, res) => {
             return res.status(400).json({
               message: 'Failed to create user',
               error_code: 400
-            })
+            });
         }
 
         return res.status(201).json({
@@ -142,17 +140,15 @@ exports.uploadProfilePicture = async (req, res) => {
         }
 
         const userId = req.user.id;
-        const userPP = req.user.profile_picture;
+        const filename = `profile_picture_${userId}.jpg`;
 
         try {
-            const filename = `profile_picture_${userId}.jpg`;
             const blob = bucket.file(filename);
             const blobStream = blob.createWriteStream({
                 resumable: false,
                 metadata: {
                     contentType: 'image/jpeg'
-                },
-                
+                }
             });
 
             blobStream.on('error', (err) => {
@@ -164,45 +160,25 @@ exports.uploadProfilePicture = async (req, res) => {
             });
 
             blobStream.on('finish', async () => {
-                try{
+                try {
                     const publicUrl = `https://storage.googleapis.com/${bucket.name}/${filename}`;
-                    if (userPP === null) {
-                        await blob.setMetadata({
-                            acl: [
-                                {
-                                    entity: 'allUsers',
-                                    role: 'READER',
-                                },
-                            ],
-                        });
-                        
-                        await User.update({ profile_picture: publicUrl }, { where: { id: userId } });
 
-                        return res.status(200).json({
-                            message: 'Profile picture uploaded successfully',
-                            data: {
-                                profile_picture: publicUrl
-                            },
-                            error_code: 0
-                        });
-                    } else {
-                        return res.status(200).json({
-                            message: 'Profile picture uploaded successfully',
-                            data: {
-                                profile_picture: publicUrl
-                            },
-                            error_code: 0
-                        });
-                    }
-                    
+                    await User.update({ profile_picture: publicUrl }, { where: { id: userId } });
+
+                    return res.status(200).json({
+                        message: 'Profile picture uploaded successfully',
+                        data: {
+                            profile_picture: publicUrl
+                        },
+                        error_code: 0
+                    });
                 } catch (error) {
-                    console.error('Error making file public:', error);
+                    console.error('Error saving profile picture URL:', error);
                     return res.status(500).json({ 
                         message: 'Internal server error',
                         error_code: 500
                     });
                 }
-                
             });
 
             blobStream.end(req.file.buffer);
@@ -214,4 +190,4 @@ exports.uploadProfilePicture = async (req, res) => {
             });
         }
     });
-}
+};

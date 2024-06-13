@@ -1,3 +1,6 @@
+const fs = require('fs');
+
+// Existing code
 require('dotenv').config();
 const express = require('express');
 const app = express();
@@ -12,7 +15,17 @@ app.get('/', (req, res) => {
 
 app.use('/users', userRoutes);
 
-const PORT = process.env.PORT || 3001;
+// Check if key file exists
+const keyFilePath = process.env.GCLOUD_KEYFILE_PATH;
+fs.access(keyFilePath, fs.constants.F_OK, (err) => {
+  if (err) {
+    console.error(`Key file not found: ${keyFilePath}`);
+  } else {
+    console.log(`Key file found: ${keyFilePath}`);
+  }
+});
+
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-    console.log(`Server is running on port http://localhost:${PORT}`);
+  console.log(`Server is running on port http://localhost:${PORT}`);
 });

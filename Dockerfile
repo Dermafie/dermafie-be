@@ -1,0 +1,15 @@
+FROM node:20
+WORKDIR /app
+ENV PORT 3000
+ENV DB_HOST 34.101.141.92
+ENV DB_USER root
+ENV DB_PASSWORD root
+ENV DB_NAME dermafie
+ENV GCLOUD_PROJECT_ID dermafie
+ENV GCLOUD_KEYFILE_PATH /app/keys/dermafie-c048de474224.json
+ENV GCLOUD_BUCKET_NAME dermafie-bucket
+ENV JWT_SECRET 4DAmmsjilVf/6f2bdcHYJQNXwUwhrakdHjRW76PQrmw+X0+7fz4Beu6qTXa9Hxmi
+COPY . .
+RUN npm install
+EXPOSE 3000
+CMD [ "npm", "run", "start"]

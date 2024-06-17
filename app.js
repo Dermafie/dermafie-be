@@ -1,10 +1,9 @@
 const fs = require('fs');
-
-// Existing code
 require('dotenv').config();
 const express = require('express');
 const app = express();
 const userRoutes = require('./src/routes/userRoutes');
+const analysisRoutes = require('./src/routes/analysisRoutes');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -14,6 +13,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', userRoutes);
+app.use('/analyze', analysisRoutes);
 
 // Check if key file exists
 const keyFilePath = process.env.GCLOUD_KEYFILE_PATH;

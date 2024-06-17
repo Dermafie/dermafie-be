@@ -12,7 +12,7 @@ const upload = multer({
       const filetypes = /jpeg|jpg|png/;
       const mimetype = filetypes.test(file.mimetype);
       const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-  
+
       if (mimetype && extname) {
         return cb(null, true);
       } else {
@@ -20,6 +20,5 @@ const upload = multer({
       }
     },
   });
-  
-module.exports = upload;
 
+module.exports = upload;

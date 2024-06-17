@@ -1,3 +1,4 @@
+// src/routes/analysisRoutes.js
 const express = require('express');
 const router = express.Router();
 const { authenticate } = require('../middleware/auth');
@@ -7,7 +8,7 @@ const storeHistory = require('../services/storeData');
 const bucket = require('../helpers/storage');
 const { Disease } = require('../models');
 
-router.post('/', authenticate, upload.single('image'), async (req, res) => { // Make sure the field name is 'image'
+router.post('/', authenticate, upload.single('image'), async (req, res) => {
     if (!req.file) {
         return res.status(400).json({ 
             message: 'Please upload an image',
@@ -40,9 +41,19 @@ router.post('/', authenticate, upload.single('image'), async (req, res) => { // 
                 
                 const { prediction, probability } = await predictDisease(req.file.buffer);
 
-                const disease = await Disease.findOne({ where: { name: prediction } });
+                const disease = await Disease.findOne({ 
+                    where: { name: prediction },
+                    attributes: ['id', 'name', 'description', 'effects', 'solution'] // Adjust attributes to exclude timestamps
+                });
 
-                await storeHistory(userId, disease ? disease.id : null, imageURL, prediction);
+                if (!disease) {
+                    return res.status(404).json({
+                        message: 'Disease not found',
+                        error_code: 404
+                    });
+                }
+
+                await storeHistory(userId, disease.id, imageURL, prediction);
 
                 return res.status(200).json({
                     message: 'Analysis complete',

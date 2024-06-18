@@ -1,3 +1,4 @@
+// models/disease.js
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
@@ -33,9 +34,12 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Disease',
     tableName: 'diseases',
-    timestamps: true,
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    timestamps: false // Disable timestamps for this model
   });
+
+  Disease.associate = function(models) {
+    Disease.hasMany(models.History, { foreignKey: 'diseaseId' });
+};
+
   return Disease;
 };

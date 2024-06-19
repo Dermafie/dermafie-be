@@ -67,7 +67,7 @@ npm run migrate
 npm run start
 ```
 
-You can check the endpoints in [here](Endpoints)
+You can check the endpoints in [here](#Endpoints)
 
 # Endpoints
 ## User

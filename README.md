@@ -205,7 +205,7 @@ Endpoint to post a picture and getting the classification result.
 
 ```json
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg2NmExMTdmLTZmYWMtNDYxNC1iZThkLWI4ZWFhOGY0ZjM4NiIsImVtYWlsIjoiam9obi5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3MTc1MjU3OTEsImV4cCI6MTcxNzYxMjE5MX0.tJcazpXq7SR1tBrkvPWFEqQ_F7v6zFXpA5bEA4z3Tt4"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg2NmExMTdmLTZmYWMtNDYxNC1iZThkLWI4ZWFhOGY0ZjM4NiIsImVtYWlsIjoiam9obi5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3MTc1MjU3OTEsImV4cCI6MTcxNzYxMjE5MX0.tJcazpXq7SR1tBrkvPWFEqQ_F7v6zFXpA5bEA4z3Tt0"
 }
 ```
 
@@ -225,7 +225,7 @@ Endpoint to post a picture and getting the classification result.
     "data": {
         "prediction": "Healthy Skin",
         "probability": 0.5981177687644958,
-        "imageURL": "https://storage.googleapis.com/dermafie-bucket/imageAnalysis/image_1718778880933_d866da6d-cadb-4b55-8be8-64aaee179e31.jpg",
+        "imageURL": "https://storage.googleapis.com/dermafie-bucket/imageAnalysis/image_1718778880933_d866da6d-cadb-4b55-8be8-64aaee179eff1.jpg",
         "disease": {
             "name": "Healthy Skin",
             "description": "Your facial skin is healthy and does not show signs of irritation or disease, keep it up",
@@ -247,7 +247,7 @@ Endpoint to get the history of the past result.
 
 ```json
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg2NmExMTdmLTZmYWMtNDYxNC1iZThkLWI4ZWFhOGY0ZjM4NiIsImVtYWlsIjoiam9obi5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3MTc1MjU3OTEsImV4cCI6MTcxNzYxMjE5MX0.tJcazpXq7SR1tBrkvPWFEqQ_F7v6zFXpA5bEA4z3Tt4"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg2NmExMTdmLTZmYWMtNDYxNC1iZThkLWI4ZWFhOGY0ZjM4NiIsImVtYWlsIjoiam9obi5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3MTc1MjU3OTEsImV4cCI6MTcxNzYxMjE5MX0.tJcazpXq7SR1tBrkvPWFEqQ_F7v6zFXpA5bEA4z3Tt0"
 }
 ```
 
@@ -261,7 +261,7 @@ Endpoint to get the history of the past result.
             "id": 47,
             "scanDate": "2024-06-19T06:34:47.000Z",
             "scanResult": "Healthy Skin",
-            "imageURL": "https://storage.googleapis.com/dermafie-bucket/imageAnalysis/image_1718778880933_d866da6d-cadb-4b55-8be8-64aaee179e31.jpg",
+            "imageURL": "https://storage.googleapis.com/dermafie-bucket/imageAnalysis/image_1718778880933_d866da6d-cadb-4b55-8be8-64aaee179e3ff.jpg",
             "createdAt": "2024-06-19T06:34:47.000Z",
             "updatedAt": "2024-06-19T06:34:47.000Z",
             "disease": {

@@ -2,6 +2,73 @@
 
 Backend Repository and API Documentation for the Dermafie application. Created using express.js framework from Node.js
 
+## Cloud Architecture
+
+![Cloud_architecture](https://drive.google.com/uc?id=1N0ZX-TY5_UvVGw5W53esQh10qpbSQxas)
+
+## Databases
+
+All the databases in our backend
+
+### Users
+| id | name | email | password | profile_picture | createdAt | updatedAt |
+|------|-------|-------|--------|----------------|----------|----------|
+| 1b38009c-fc91-46be-a618-7897e91fac36 | John Doe | john123@example.com | hashed_password | picture_link | YYYY-MM-DD HH:MM:SS | YYYY-MM-DD HH:MM:SS|
+
+### diseases
+| id | name | description | effects | solutions |
+|------|-------|------------|---------|--------|
+| 1 | Healthy Skins | Your facial skin is healthy and does not show signs of irritation or disease, keep it up | - | To maintain healthy skin, regular cleansing, moisturizing, sun protection (using SPF), a balanced diet, staying hydrated, and avoiding harmful habits like smoking are recommended.  |
+
+### history
+| id | userId | diseaseId | scanDate | scanResult | createdAt | updatedAt | imageURL |
+|------|-------|---------|----------|-------------|----------|----------|---------|
+| 1 | 1b38009c-fc91-46be-a618-7897e91fac36 | 1 | YYYY-MM-DD HH:MM:SS | Healthy Skin | YYYY-MM-DD HH:MM:SS | YYYY-MM-DD HH:MM:SS| picture_link |
+
+## For local 
+
+1. Clone this repository
+```
+git clone https://github.com/Dermafie/dermafie-be.git
+```
+
+2. Make sure you have MySQL ( you can install in this link )
+```
+https://dev.mysql.com/downloads/installer/
+```
+
+3. Install the dependencies
+```
+npm install
+```
+
+4. Create a .env file based on your Database
+```
+PORT= ...
+DB_HOST= localhost
+DB_USER= ...
+DB_PASSWORD= ...
+DB_NAME= ...
+
+GCLOUD_PROJECT_ID= ...
+GCLOUD_KEYFILE_PATH= ...
+GCLOUD_BUCKET_NAME= ...
+
+JWT_SECRET= ...
+```
+
+4. Migrate the database
+```
+npm run migrate
+```
+
+5. Run the app
+```
+npm run start
+```
+
+You can check the endpoints in [here](Endpoints)
+
 # Endpoints
 ## User
 

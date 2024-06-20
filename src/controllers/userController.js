@@ -140,14 +140,18 @@ exports.uploadProfilePicture = async (req, res) => {
         }
 
         const userId = req.user.id;
-        const filename = `profile_picture_${userId}.jpg`;
+        //unique filename
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        const filename = `profile_picture_${userId}_${uniqueSuffix}.jpg`;
 
         try {
             const blob = bucket.file(filename);
             const blobStream = blob.createWriteStream({
                 resumable: false,
                 metadata: {
-                    contentType: 'image/jpeg'
+                    contentType: 'image/jpeg',
+                    //cache-control
+                    cacheControl: 'public, max-age=0, no-transform'
                 }
             });
 

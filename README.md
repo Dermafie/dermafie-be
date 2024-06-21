@@ -1,4 +1,20 @@
-# dermafie-be
+<h1 align="center">Dermafie Cloud Computing</h1>
+
+<div align="center">
+
+![Javascript](https://img.shields.io/badge/Javascript-05122A?style=flat&logo=Javascript)&nbsp;
+![Nodejs](https://img.shields.io/badge/Nodejs-05122A?style=flat&logo=Node.js)&nbsp;
+![Express](https://img.shields.io/badge/express-05122A?style=flat&logo=express)&nbsp;
+![JWT](https://img.shields.io/badge/jsonwebtoken-05122A?style=flat&logo=jsonwebtokens)&nbsp;
+![TensorflowJS](https://img.shields.io/badge/TensorflowJS-05122A?style=flat&logo=tensorflow)&nbsp;
+![MySQL2](https://img.shields.io/badge/MySQL-05122A?style=flat&logo=MySQL)&nbsp;
+![npm](https://img.shields.io/badge/npm-05122A?style=flat&logo=npm)&nbsp;
+![GoogleCloud](https://img.shields.io/badge/Google%20Cloud-05122A?style=flat&logo=googlecloud)&nbsp;
+![Docker](https://img.shields.io/badge/Docker-05122A?style=flat&logo=docker)&nbsp;
+
+</div>
+
+# Backends
 
 Backend Repository and API Documentation for the Dermafie application. Created using express.js framework from Node.js
 
